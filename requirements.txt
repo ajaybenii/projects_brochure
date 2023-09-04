@@ -3,6 +3,7 @@ pytesseract
 fastapi
 python-multipart
 pdf2image
+poppler-utils
 python-dateutil
 uvicorn
 python-dotenv
