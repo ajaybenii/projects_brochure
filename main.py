@@ -40,7 +40,7 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
 
     # Process the PDF file
     pytesseract.pytesseract.tesseract_cmd = r'Tesseract-OCR\tesseract.exe'
-    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= r"poppler-23.08.0/Library/bin")
+    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= r'bin')
     text = ""
 
     # Extract text from the all pages
@@ -74,7 +74,3 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
     os.remove(temp_pdf_path)
 
     return {"Description": result}
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="127.0.0.1", port=8000)
