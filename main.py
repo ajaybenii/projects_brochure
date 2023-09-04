@@ -18,9 +18,14 @@ openai.api_key = os.getenv('openai.api_key')
 openai.api_base = 'https://sqy-openai.openai.azure.com/'
 openai.api_version = "2023-05-15"
 
-poppler_path = r"poppler-23.05.0/Library/bin"
-os.environ["PATH"] = f"{poppler_path}:{os.environ['PATH']}"
+# poppler_path = os.environ("poppler-23.05.0/Library/bin")
+# os.environ["PATH"] = f"{poppler_path}:{os.environ['PATH']}"
 
+# Set the environment variable
+os.environ["poppler_path"] = "poppler-23.05.0/Library/bin"
+
+# Access the environment variable
+poppler_path = os.environ["poppler_path"]
 
 @app.post("/uploadpdf/")
 async def upload_pdf(pdf_file: UploadFile = File(...)):
