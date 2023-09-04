@@ -1,0 +1,7 @@
+opeani
+pytesseract
+fastapi
+python-multipart
+pdf2image
+uvicorn
+python-dotenv
