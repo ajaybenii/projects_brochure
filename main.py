@@ -22,7 +22,7 @@ openai.api_version = "2023-05-15"
 # os.environ["PATH"] = f"{poppler_path}:{os.environ['PATH']}"
 
 # Set the environment variable
-os.environ["poppler_path"] = "poppler-23.05.0/Library/bin"
+os.environ["poppler_path"] = r"poppler-23.08.0/Library/bin"
 
 # Access the environment variable
 poppler_path = os.environ["poppler_path"]
