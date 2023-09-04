@@ -1,4 +1,4 @@
-opeani
+openai
 pytesseract
 fastapi
 python-multipart
