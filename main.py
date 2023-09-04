@@ -18,7 +18,9 @@ openai.api_key = os.getenv('openai.api_key')
 openai.api_base = 'https://sqy-openai.openai.azure.com/'
 openai.api_version = "2023-05-15"
 
-path_poppler = r"poppler-23.05.0/Library/bin"
+poppler_path = r"poppler-23.05.0/Library/bin"
+os.environ["PATH"] = f"{poppler_path}:{os.environ['PATH']}"
+
 
 @app.post("/uploadpdf/")
 async def upload_pdf(pdf_file: UploadFile = File(...)):
@@ -33,7 +35,7 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
 
     # Process the PDF file
     pytesseract.pytesseract.tesseract_cmd = r'Tesseract-OCR\tesseract.exe'
-    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path=path_poppler)
+    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path=poppler_path)
     text = ""
 
     # Extract text from the all pages
