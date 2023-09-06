@@ -19,6 +19,14 @@ openai.api_base = 'https://sqy-openai.openai.azure.com/'
 openai.api_version = "2023-05-15"
 
 # poppler_path = os.environ("poppler-23.05.0/Library/bin")
+# Set the path to the Poppler binaries directory
+poppler_path = '/path/to/poppler/binaries'
+
+# Set the environment variable
+os.environ['POPPLER_PATH'] = poppler_path
+
+poppler_path = os.environ['POPPLER_PATH']
+
 # os.environ["PATH"] = f"{poppler_path}:{os.environ['PATH']}"
 
 # # Set the environment variable
@@ -36,6 +44,7 @@ relative_path = os.path.join("..", "poppler-23.08.0", "Library", "bin")
 # Create the absolute path by joining it with the current directory
 absolute_path = os.path.abspath(os.path.join(current_directory, relative_path))
 
+print("Poppler PAth:", poppler_path)
 print("Relative Path:", relative_path)
 print("Absolute Path:", absolute_path)
 
@@ -52,7 +61,7 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
 
     # Process the PDF file
     pytesseract.pytesseract.tesseract_cmd = r'Tesseract-OCR\tesseract.exe'
-    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= absolute_path)
+    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= poppler_path)
     text = ""
 
     # Extract text from the all pages
