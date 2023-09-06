@@ -34,6 +34,7 @@ current_directory = os.getcwd()
 
 # Calculate the relative path
 relative_path = os.path.relpath(target_file, current_directory)
+print("poppler path = ",relative_path)
 
 @app.post("/uploadpdf/")
 async def upload_pdf(pdf_file: UploadFile = File(...)):
@@ -48,7 +49,7 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
 
     # Process the PDF file
     pytesseract.pytesseract.tesseract_cmd = r'Tesseract-OCR\tesseract.exe'
-    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= r"../poppler-23.08.0/Library/bin")
+    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= "../poppler-23.08.0/Library/bin")
     text = ""
 
     # Extract text from the all pages
