@@ -20,7 +20,7 @@ openai.api_version = "2023-05-15"
 
 # poppler_path = os.environ("poppler-23.05.0/Library/bin")
 # Set the path to the Poppler binaries directory
-poppler_path = '/path/to/poppler/binaries'
+poppler_path = 'poppler-23.05.0/Library/bin'
 
 # Set the environment variable
 os.environ['POPPLER_PATH'] = poppler_path
@@ -42,7 +42,7 @@ current_directory = os.getcwd()
 relative_path = os.path.join("..", "poppler-23.08.0", "Library", "bin")
 
 # Create the absolute path by joining it with the current directory
-absolute_path = os.path.abspath(os.path.join(current_directory, relative_path))
+absolute_path = os.path.abspath(os.path.join(current_directory, poppler_path))
 
 print("Poppler PAth:", poppler_path)
 print("Relative Path:", relative_path)
