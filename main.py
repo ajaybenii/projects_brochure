@@ -21,9 +21,7 @@ openai.api_version = "2023-05-15"
 
 # poppler_path = os.environ("poppler-23.05.0/Library/bin")
 # Set the path to the Poppler binaries directory
-poppler_path = r'poppler-23.05.0/Library/bin'
-
-
+poppler_path = os.environ.get("poppler_path")
 
 @app.post("/uploadpdf/")
 async def upload_pdf(pdf_file: UploadFile = File(...)):
