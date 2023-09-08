@@ -21,7 +21,7 @@ openai.api_version = "2023-05-15"
 
 # poppler_path = os.environ("poppler-23.05.0/Library/bin")
 # Set the path to the Poppler binaries directory
-poppler_path = r'poppler-23.08.0/Library/bin'
+path = r'poppler-23.08.0/Library/bin'
 
 # poppler_path = os.environ.get("poppler_path")
 
@@ -38,7 +38,7 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
 
     # Process the PDF file
     pytesseract.pytesseract.tesseract_cmd = r'Tesseract-OCR\tesseract.exe'
-    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= poppler_path)
+    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= path)
     text = ""
 
     # Extract text from the all pages
