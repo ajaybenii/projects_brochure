@@ -40,7 +40,7 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
 
     # Process the PDF file
     pytesseract.pytesseract.tesseract_cmd = r'Tesseract-OCR\tesseract.exe'
-    images = convert_from_path(temp_pdf_path, dpi=300, poppler_path= absolute_path)
+    images = convert_from_path(temp_pdf_path)
     text = ""
 
     # Extract text from the all pages
