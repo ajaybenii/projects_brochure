@@ -8,4 +8,3 @@ poppler-utils
 uvicorn
 python-dotenv
 gunicorn
-python-poppler
