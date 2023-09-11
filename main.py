@@ -124,13 +124,13 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
         temp_pdf.write(pdf_file.file.read())
 
     try:
-        # pytesseract.pytesseract.tesseract_cmd = absolute_path
+        pytesseract.pytesseract.tesseract_cmd = absolute_path
         pdf_text = process_pdf(temp_pdf_path)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"PDF processing error: {str(e)}")
     finally:
         os.remove(temp_pdf_path)
-        
+
     print("text = ", pdf_text)
 
     # Use OpenAI API to generate a description
