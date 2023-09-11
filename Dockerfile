@@ -47,6 +47,5 @@ EXPOSE 80
 CMD gunicorn main:app \
     --bind 0.0.0.0:$PORT \
     --workers=4 \
-    --timeout 60 \
     -k uvicorn.workers.UvicornWorker 
 

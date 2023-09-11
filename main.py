@@ -5,7 +5,7 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from dotenv import load_dotenv
 from pdf2image import convert_from_path
 from PIL import Image
-from pytesseract import pytesseract
+
 
 import io
 app = FastAPI()
@@ -22,7 +22,7 @@ openai.api_version = "2023-05-15"
 # absolute_path = os.path.abspath(str(pytesseract))
 # print(absolute_path)
 
-# tesseract_path = r'Tesseract-OCR\tesseract.exe'
+tesseract_path = r'Tesseract-OCR\tesseract.exe'
 
 # Function to process PDF and extract text
 def process_pdf(pdf_path):
@@ -34,7 +34,7 @@ def process_pdf(pdf_path):
         page.save(b, "JPEG")
         img_bytes = b.getvalue()
 
-        text = str(
+        page_text = str(
             (
                 (
                     pytesseract.image_to_string(
@@ -45,12 +45,12 @@ def process_pdf(pdf_path):
         )
         # page_text = pytesseract.image_to_string(page)
         # print(page_text)
-        # text += page_text
+        text += page_text
         # # if len(text) >= 12500:
         # print("page count = ", page_count)
-        # if page_count == 4:
-        #     break
-    print(text)
+        if page_count == 4:
+            break
+    # print(text)
     return text
 
 @app.post("/uploadpdf/")
