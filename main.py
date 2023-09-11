@@ -106,8 +106,10 @@ def process_pdf(pdf_path):
         page_text = pytesseract.image_to_string(page)
         text += page_text
         # if len(text) >= 12500:
+        print("page count = ", page_count)
         if page_count == 4:
             break
+    print(text)
     return text
 
 @app.post("/uploadpdf/")
@@ -128,6 +130,8 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"PDF processing error: {str(e)}")
     finally:
         os.remove(temp_pdf_path)
+        
+    print("text = ", pdf_text)
 
     # Use OpenAI API to generate a description
     completion = openai.ChatCompletion.create(
