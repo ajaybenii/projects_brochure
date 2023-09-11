@@ -33,7 +33,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Install Tesseract OCR and clean up APT package cache
-RUN apt-get update && apt-get install -y tesseract-ocr && apt-get install poppler-utils && apt-get clean
+RUN apt-get update && apt-get install -y tesseract-ocr && apt-get -y install poppler-utils && apt-get clean
 
 # Copy your application code into the container
 COPY . .
