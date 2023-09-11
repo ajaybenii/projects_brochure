@@ -14,7 +14,8 @@ load_dotenv()
 
 # Set up OpenAI API
 openai.api_type = "azure"
-openai.api_key = os.getenv("openai.api_key")
+openai.api_key = 'f379f0f5e9e042289297765f32320268'
+
 openai.api_base = 'https://sqy-openai.openai.azure.com/'
 openai.api_version = "2023-05-15"
 
