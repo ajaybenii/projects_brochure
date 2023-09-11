@@ -53,9 +53,5 @@ CMD gunicorn main:app \
     --bind 0.0.0.0:$PORT \
     --workers=4 \
     --timeout 60 \
-    -k uvicorn.workers.UvicornWorker \
-    --log-level=info \
-    --error-logfile=$ERROR_LOGFILE \
-    --access-logfile=$ACCESS_LOGFILE \
-    --capture-output
+    -k uvicorn.workers.UvicornWorker 
 
