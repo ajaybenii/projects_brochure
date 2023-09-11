@@ -81,7 +81,7 @@ import openai
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from dotenv import load_dotenv
 from pdf2image import convert_from_path
-
+from pytesseract import pytesseract
 app = FastAPI()
 
 load_dotenv()
@@ -93,17 +93,19 @@ openai.api_base = 'https://sqy-openai.openai.azure.com/'
 openai.api_version = "2023-05-15"
 
 # relative_path = r'Tesseract-OCR\tesseract.exe'
-absolute_path = os.path.abspath(str(pytesseract))
-print(absolute_path)
+# absolute_path = os.path.abspath(str(pytesseract))
+# print(absolute_path)
 
-tesseract_path = r'Tesseract-OCR\tesseract.exe'
+# tesseract_path = r'Tesseract-OCR\tesseract.exe'
 
 # Function to process PDF and extract text
 def process_pdf(pdf_path):
     images = convert_from_path(pdf_path)
     text = ""
     for page_count, page in enumerate(images, start=1):
+        
         page_text = pytesseract.image_to_string(page)
+        print(page_text)
         text += page_text
         # if len(text) >= 12500:
         print("page count = ", page_count)
@@ -124,7 +126,7 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
         temp_pdf.write(pdf_file.file.read())
 
     try:
-        pytesseract.pytesseract.tesseract_cmd = tesseract_path
+        # pytesseract.pytesseract.tesseract_cmd = tesseract_path
         pdf_text = process_pdf(temp_pdf_path)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"PDF processing error: {str(e)}")

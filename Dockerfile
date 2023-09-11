@@ -23,6 +23,11 @@
 # Use the official Python image as the base image
 FROM python:3.9
 
+RUN apt-get update
+
+RUN apt-get -y install tesseract-ocr
+RUN apt-get install poppler-utils -y
+
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -32,22 +37,12 @@ COPY requirements.txt .
 # Install any dependencies needed for your application
 RUN pip install -r requirements.txt
 
-# Install Tesseract OCR and clean up APT package cache
-RUN apt-get update && apt-get install -y tesseract-ocr && apt-get -y install poppler-utils && apt-get clean
 
 # Copy your application code into the container
 COPY . .
 
 # Expose the port that your FastAPI application will run on (change it if needed)
 EXPOSE 80
-
-# # Command to run your FastAPI application
-# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
-
-
-# EXPOSE 8080
-
-# ENV PORT="${PORT:-8080}"
 
 CMD gunicorn main:app \
     --bind 0.0.0.0:$PORT \
