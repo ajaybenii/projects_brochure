@@ -44,8 +44,5 @@ COPY . .
 # Expose the port that your FastAPI application will run on (change it if needed)
 EXPOSE 80
 
-CMD gunicorn main:app \
-    --bind 0.0.0.0:$PORT \
-    --workers=4 \
-    -k uvicorn.workers.UvicornWorker 
+CMD gunicorn main:app
 
