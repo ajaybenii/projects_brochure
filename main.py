@@ -92,8 +92,8 @@ openai.api_key = os.getenv("openai.api_key")
 openai.api_base = 'https://sqy-openai.openai.azure.com/'
 openai.api_version = "2023-05-15"
 
-# relative_path = r'Tesseract-OCR\tesseract.exe'
-absolute_path = os.path.abspath(str(pytesseract))
+relative_path = r'Tesseract-OCR\tesseract.exe'
+absolute_path = os.path.abspath(relative_path)
 print(absolute_path)
 
 tesseract_path = r'Tesseract-OCR\tesseract.exe'
