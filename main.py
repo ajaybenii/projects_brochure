@@ -92,8 +92,8 @@ openai.api_key = os.getenv("openai.api_key")
 openai.api_base = 'https://sqy-openai.openai.azure.com/'
 openai.api_version = "2023-05-15"
 
-relative_path = r'Tesseract-OCR\tesseract.exe'
-absolute_path = os.path.abspath(relative_path)
+# relative_path = r'Tesseract-OCR\tesseract.exe'
+absolute_path = os.path.abspath(str(pytesseract))
 print(absolute_path)
 
 tesseract_path = r'Tesseract-OCR\tesseract.exe'
@@ -105,7 +105,8 @@ def process_pdf(pdf_path):
     for page_count, page in enumerate(images, start=1):
         page_text = pytesseract.image_to_string(page)
         text += page_text
-        if len(text) >= 12500:
+        # if len(text) >= 12500:
+        if page_count == 4:
             break
     return text
 
