@@ -1,26 +1,30 @@
-# FROM python:3.8
 
-# # RUN useradd -m SQRYRDS
+# FROM python:3.9
 
-# ENV PYTHONUNBUFFERED 0
+# RUN apt-get update
 
-# ENV ERROR_LOGFILE /home/app/logs/gunicorn-error.log
+# RUN apt-get -y install tesseract-ocr
+# RUN apt-get install poppler-utils -y
 
-# ENV ACCESS_LOGFILE /home/app/logs/gunicorn-access.log
+# # Set the working directory inside the container
+# WORKDIR /app
 
-# WORKDIR /home/app
+# # Copy the requirements file into the container
+# COPY requirements.txt .
 
-# ADD requirements.txt /home/app
+# # Install any dependencies needed for your application
+# RUN pip install -r requirements.txt
 
-# RUN apt-get update && apt-get install -y tesseract-ocr && apt-get clean
 
-# RUN pip install --upgrade pip && \
-#     pip install --trusted-host pypi.python.org -r requirements.txt
+# # Copy your application code into the container
+# COPY . .
 
-# RUN apt-get clean && apt-get update && apt-get install -y locales locales-all
+# # Expose the port that your FastAPI application will run on (change it if needed)
+# EXPOSE 80
 
-# ADD . /home/app
-# Use the official Python image as the base image
+# CMD gunicorn --bind 0.0.0.0:$PORT main:app -k uvicorn.workers.UvicornWorker
+
+# Use an official Python runtime as a parent image
 FROM python:3.9
 
 RUN apt-get update
@@ -37,12 +41,19 @@ COPY requirements.txt .
 # Install any dependencies needed for your application
 RUN pip install -r requirements.txt
 
-
 # Copy your application code into the container
 COPY . .
 
 # Expose the port that your FastAPI application will run on (change it if needed)
 EXPOSE 80
 
-CMD gunicorn --bind 0.0.0.0:$PORT main:app -k uvicorn.workers.UvicornWorker
+# Define environment variables for logging
+ENV LOG_FILE /app/app.log
+ENV LOG_LEVEL INFO
 
+# Install Gunicorn and Create a Log Directory
+RUN pip install gunicorn
+RUN mkdir /app/logs
+
+# Define the command to run your FastAPI application with Gunicorn
+CMD ["gunicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--workers", "4", "--log-file", "$LOG_FILE", "--log-level", "$LOG_LEVEL"]

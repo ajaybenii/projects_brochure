@@ -5,6 +5,7 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from dotenv import load_dotenv
 from pdf2image import convert_from_path
 from PIL import Image
+import logging
 
 
 import io
@@ -24,6 +25,9 @@ openai.api_version = "2023-05-15"
 # print(absolute_path)
 
 tesseract_path = r'Tesseract-OCR\tesseract.exe'
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # Function to process PDF and extract text
 def process_pdf(pdf_path):
@@ -56,36 +60,41 @@ def process_pdf(pdf_path):
 
 @app.post("/uploadpdf/")
 async def upload_pdf(pdf_file: UploadFile = File(...)):
-    # Check if the uploaded file is a PDF
-    if pdf_file.content_type != "application/pdf":
-        raise HTTPException(status_code=400, detail="Invalid file format")
-
-    # Create a temporary file to save the uploaded PDF
-    temp_pdf_path = f"temp_{pdf_file.filename}"
-    with open(temp_pdf_path, "wb") as temp_pdf:
-        temp_pdf.write(pdf_file.file.read())
-
     try:
-        # pytesseract.pytesseract.tesseract_cmd = tesseract_path
-        pdf_text = process_pdf(temp_pdf_path)
+        # Check if the uploaded file is a PDF
+        if pdf_file.content_type != "application/pdf":
+            raise HTTPException(status_code=400, detail="Invalid file format")
+
+        # Create a temporary file to save the uploaded PDF
+        temp_pdf_path = f"temp_{pdf_file.filename}"
+        with open(temp_pdf_path, "wb") as temp_pdf:
+            temp_pdf.write(pdf_file.file.read())
+
+        try:
+            # pytesseract.pytesseract.tesseract_cmd = tesseract_path
+            pdf_text = process_pdf(temp_pdf_path)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"PDF processing error: {str(e)}")
+        finally:
+            os.remove(temp_pdf_path)
+
+        print("text = ", pdf_text)
+
+        # Use OpenAI API to generate a description
+        completion = openai.ChatCompletion.create(
+            deployment_id="sqy-gpt-35-turbo",
+            model="gpt-3.5-turbo",
+            temperature=1.3,
+            messages=[
+                {"role": "system", "content": "i will give you content, the content belongs to real estate projects, content containing valuable information on various real estate projects, your task is to craft a comprehensive and engaging 500-word project description that intricately illustrates the key features, property price, amenities,property size, benefits, and potential of these projects. Your description should captivate potential investors and buyers, providing them with a vivid picture of the exceptional opportunities and unique qualities each project presents. Ensure that your narrative not only highlights the project's physical attributes but also its location, market potential, and any other relevant details that can make these real estate ventures stand out in the competitive market.The output response should be without any grammtical or syntax error."},
+                {"role": "user", "content": str(pdf_text)}
+            ]
+        )
+
+        result = completion.choices[0].message['content']
+
+        return {"Description": result}
+    
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"PDF processing error: {str(e)}")
-    finally:
-        os.remove(temp_pdf_path)
-
-    print("text = ", pdf_text)
-
-    # Use OpenAI API to generate a description
-    completion = openai.ChatCompletion.create(
-        deployment_id="sqy-gpt-35-turbo",
-        model="gpt-3.5-turbo",
-        temperature=1.3,
-        messages=[
-            {"role": "system", "content": "i will give you content, the content belongs to real estate projects, content containing valuable information on various real estate projects, your task is to craft a comprehensive and engaging 500-word project description that intricately illustrates the key features, property price, amenities,property size, benefits, and potential of these projects. Your description should captivate potential investors and buyers, providing them with a vivid picture of the exceptional opportunities and unique qualities each project presents. Ensure that your narrative not only highlights the project's physical attributes but also its location, market potential, and any other relevant details that can make these real estate ventures stand out in the competitive market.The output response should be without any grammtical or syntax error."},
-            {"role": "user", "content": str(pdf_text)}
-        ]
-    )
-
-    result = completion.choices[0].message['content']
-
-    return {"Description": result}
+        logger.error(f"An error occurred: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal server error")
