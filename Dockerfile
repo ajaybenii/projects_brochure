@@ -33,7 +33,7 @@ RUN apt-get -y install tesseract-ocr
 RUN apt-get install poppler-utils -y
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /projects_brochure
 
 # Copy the requirements file into the container
 COPY requirements.txt .
@@ -48,12 +48,13 @@ COPY . .
 EXPOSE 80
 
 # Define environment variables for logging
-ENV LOG_FILE /app/app.log
+ENV LOG_FILE /projects_brochure/app.log
 ENV LOG_LEVEL INFO
 
 # Install Gunicorn and Create a Log Directory
 RUN pip install gunicorn
-RUN mkdir /app/logs
+RUN mkdir /projects_brochure/logs
 
 # Define the command to run your FastAPI application with Gunicorn
-CMD ["gunicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--workers", "4", "--log-file", "$LOG_FILE", "--log-level", "$LOG_LEVEL"]
+CMD ["gunicorn", "main:app","--log-file", "$LOG_FILE", "--log-level", "$LOG_LEVEL"]
+
