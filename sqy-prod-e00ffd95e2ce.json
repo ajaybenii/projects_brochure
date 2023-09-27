@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sqy-prod",
+  "private_key_id": "e00ffd95e2cefbe6906dfa142fc1a9d925d5e563",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCarggqR3TReuSi\nQxEpzg5NBioWa2KBvDUp+7MBznrJd7fBmHARlPbZIKv7XSbhn74Cnd0QAo8QzOI0\niXD2wtZqoMh3NMUqyV1LsiUtneUNDNzgRd6Dj34Ch6iE97uGxFG97imFFNYopu54\n4d0CEK8zM5xQea/F1AId9TXHQHEWpbCIGeruQEbefebSsXK9zAkTbwx13DAXTGmo\nGttIMK+tjvP8WgaOIVyYF/ig3JVUO6/YIWGyQV7Sb6a1ltrJw1Euh60lr2PXB6fD\n+XUzVD9hI9JhxjvMFBnYceO7lL/cSp5FCMAVJVl2yM6Vh4y2PmLSYPS8MmnH1w0S\nKRhpzlOHAgMBAAECggEANUog2QQOPH9U1ow5lQf/CE1H4bp0URL40/J5vPUYe2Fp\n5uIwNfZ2xt5JMgvpMdE5gqhFeVcQV+7mPcheKT195nVnKx58kR2XrVT+FwWvXHwi\neofHvdaJSLDY/5pjum3XZZJwLn+7unysauwRmr0Jxx+QSm9p/cNpSU3qDa/nZi/9\nApPa1G/C655f1myX5NvzlvtQraUjt+4jK3NVxfH3zrOPi+SJEttEOx0NNSqf5kQe\nFQJpbfO9dcW9o+o+hVjTPOPJrIGub7zdvLHD6z5bnuUemPHixDNdKXHeREkR9d8X\nG7uuP0VAJo4QazkqbURpeg8G+Fa/yEqDSSHzFxbEiQKBgQDMw4dtoLwZUJoVRWHc\nCxg+ulIpUKqxasrNyPsGun5f1LBNegwh+m7PMtP5fwcJVtMuD0aDfbI3RoHhTGYs\n67TwFemFAlJ8QfJ665u0bZ6SvQzl+lNoroUezHas1TunkuNnHIEIABduNoy26mOM\nOc36I9ot0yI2ZCoONbHYmbxzmQKBgQDBYktH5AwS5M+gLSQRp+puDNGsY0cfv94w\nojoJOkozla/FDgBlgr+nE/elpgF1geabURs9zhgB/oiCrwd7g2odqN+pomATBR4v\nBXyUkfV54HxK+ysxbQECvH0bvjZreGHtKVODMKPpxI+H3NRVCqf95J7+vzp6xjra\nUnc2dVN0HwKBgEW2+J/5jrErwRom4jeRy3Jn61tHrKX1DxFbMSRMUIR+HHx0ZjcX\nVazTyFn0xseGOSZAayiPniK1rbiwU0VOBu+K9lOjw8OsjEsPdpbKj6e0F/Ug8k78\nxDQFNw6HFuVp3GSZztCTf2a1ydjpGnV+pMNae4kIjmhoV+04mNF/HitZAoGBAKzC\nFgSUWqDqXf13Nji7rHdB5nI9goV/j4wc8QHbW/x3Zb4BgyMsSfCFqwAFrFoAgTYR\nn+d33QSzEdrFaEbUIJF8ksrlbzSupsdU/HVxaz3E6OTHO0/9VCDQqGeHZvBdbAZF\nnACgDF7DJYI3Kk0KpwbvHYbw6NpTirINZ8hzyej7AoGBAJL0/UCzjoySDwpU2TCd\nBqvB2kY7By6nb4/Gpp4Qnh+867OWo+k44fwfq2cteOAVTMwRjmu3pf08FcXYm5Xw\nw7tJy2GShxK45NP963Y3GFlWxUDo5SFZV8ba31uKVZ0nkrGAGzCO7TVjrXyFTv6X\n8XCdMtxIeVQgE0TVR+0Votrg\n-----END PRIVATE KEY-----\n",
+  "client_email": "sqy-prod-beats-app-sa@sqy-prod.iam.gserviceaccount.com",
+  "client_id": "110346611720373567746",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sqy-prod-beats-app-sa%40sqy-prod.iam.gserviceaccount.com"
+}
